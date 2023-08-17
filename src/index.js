@@ -1,27 +1,37 @@
-// import axios from "axios";
-
+// import axios from "axios"; 
 // axios.defaults.headers.common["x-api-key"] = "live_JJWPSVYeymspnNURrwJNrEoFQ9xEFTfnXeyuAKVCVICBuPkGG95Ew7XOSCY83E6e";
-
-
-
+import { fetchBreeds } from "./js/cat-api";
 
     // axios.get('https://api.thecatapi.com/v1/images/search')
     // .then(response => { console.log(response) });
 
-// //     При загрузке страницы должен выполняться HTTP-запрос за коллекцией пород.
+// Коллекция пород
+// При загрузке страницы должен выполняться HTTP-запрос за коллекцией пород.
 // Для этого необходимо выполнить GET - запрос на ресурс https://api.thecatapi.com/v1/breeds,
-// возвращающий массив объектов.При успешном запросе, необходимо наполнить select.breed - select опциями так,
-//     чтобы value опции содержал id породы, а в интерфейсе пользователю отображалось название породы.
+// возвращающий массив объектов. При успешном запросе, необходимо наполнить select.breed - select 
+// опциями так, чтобы value опции содержал id породы, а в интерфейсе пользователю отображалось 
+// название породы. 
+// Напиши функцию fetchBreeds() которая делает HTTP-запрос и возвращает промис с массивом 
+// пород - результатом запроса.Вынеси её в файл cat - api.js и сделай именованный экспорт.
 
-// // Напиши функцию fetchBreeds() которая делает HTTP-запрос и возвращает промис с массивом пород -
-//  результатом запроса.Вынеси её в файл cat - api.js и сделай именованный экспорт.
+window.addEventListener('load', fetchBreeds); 
 
-const fetchBreedsSelect = document.querySelector(".breed-select");
-catInfo = document.querySelector(".cat-info");
+// Информация о коте
+// Когда пользователь выбирает опцию в селекте, необходимо выполнять запрос за полной информацией
+// о коте на ресурс https://api.thecatapi.com/v1/images/search. Не забудь указать в этом запросе
+// параметр строки запроса breed_ids с идентификатором породы.
+// Напиши функцию fetchCatByBreed(breedId) которая ожидает идентификатор породы, делает HTTP-запрос
+// и возвращает промис с данными о коте - результатом запроса.Вынеси её в файл cat - api.js
+// и сделай именованный экспорт.
+// Если запрос был успешный, под селектом, в блоке div.cat-info появляется изображение и развернутая
+// информация о коте: название породы, описание и темперамент.
+
+const fetchBreedsSelect = document.querySelector('.breed-select');
+catInfo = document.querySelector('.cat-info');
 
 // const url = `https://api.thecatapi.com/v1/breeds`;
 const api_key = "live_JJWPSVYeymspnNURrwJNrEoFQ9xEFTfnXeyuAKVCVICBuPkGG95Ew7XOSCY83E6e"
-let storedBreeds = []
+// let storedBreeds = []
 
 //  fetch(url,{headers: {
 //       'x-api-key': api_key
@@ -30,19 +40,15 @@ let storedBreeds = []
 //    return response.json();
 //  })
 // .then((data) => {
-//    console.log(data);
 //    //filter to only include those with an `image` object
 //    data = data.filter(img=> img.image?.url!=null)
    
 //     storedBreeds = data;
-    
-//     console.log(storedBreeds);
+//     // console.log(storedBreeds);
    
 //    for (let i = 0; i < storedBreeds.length; i++) {
-//     const breed = storedBreeds[i];
+//      const breed = storedBreeds[i];
 //     let option = document.createElement('option');
-     
-       
 //     //    console.log(breed);
 //     //    console.log(option);
 //      //skip any breeds that don't have an image
@@ -50,20 +56,21 @@ let storedBreeds = []
      
 //     //use the current array index
 //     option.value = i;
-//        option.innerHTML = `${breed.name}`; 
-//        console.log(option.innerHTML);
+//        option.innerHTML = `${breed.name}`;
 //     //    document.getElementById(".breed-select").appendChild(option);
 //       fetchBreedsSelect.appendChild(option);
-    
-//     }
-//     console.log(fetchBreedsSelect);
+//   }
+//     // console.log(fetchBreedsSelect);
 //    //show the first breed by default
-//    showBreedImage(0)
+//   //  showBreedImage(0)
 // })
 // .catch(function(error) {
 //    console.log(error);
 // });
 
+// ==============================================
+// ============================================================================
+// ====================================================================================
 
 // https://api.thecatapi.com/v1/images/search?breed_ids={breed.id}
 // image: {id: '0XYvRd7oD', width: 1204, height: 1445, url: 'https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg'}
@@ -72,61 +79,125 @@ let storedBreeds = []
 // temperament: "Active, Energetic, Independent, Intelligent, Gentle"
 
 
-const url = `https://api.thecatapi.com/v1/images/search?breed_ids=aege`;
+fetchBreedsSelect.addEventListener("change", fetchCatByBreed);
+
+// function fetchCatByBreed(breedId) {
+// if (!isEpmty(catInfo)) {
+//     catInfo.remove();
+//   }
+// }
+ console.log(catInfo);
+function fetchCatByBreed() {
+  console.log(fetchBreedsSelect.value);
+
+  console.log(catInfo);
+  // if (!isEpmty(catInfo)) {
+  //   catInfo.remove();
+  // }
+
+// const url = `https://api.thecatapi.com/v1/images/search?breed_ids=aege`;
+  // const url = `https://api.thecatapi.com/v1/images/search?breed_ids=${breed.id}`;
+  const url = `https://api.thecatapi.com/v1/images/search?breed_ids=${fetchBreedsSelect.value}`;
+
+  console.log(url);
 // const api_key = "DEMO_API_KEY"
 
- fetch(url,{headers: {
+  fetch(url, {
+    headers: {
       'x-api-key': api_key
-    }})
- .then((response) => {
-   return response.json();
- })
-.then((data) => {
-    let imagesData = data;
-    console.log(imagesData);
+    }
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      let imagesData = data;
+      // console.log(imagesData);
 
-    imagesData.map(function (imageData) {     
-      const { url, breeds } = imageData;      
+      imagesData.map(function (imageData) {
+        const { url, breeds } = imageData;
       
-     console.log(imageData);
-    let image = document.createElement('img');
-    //use the url from the image object
-        image.src = `${url}`;      
+        // console.log(imageData);
+        let image = document.createElement('img');
+        //use the url from the image object
+        image.src = `${url}`;
         // image.width = 20px;
-    console.log(image.src);
+        console.log(image.src);
             
       
-      let nameCat = document.createElement('h2');   
-      nameCat.textContent = `${breeds[0].name}`;
-      let descriptionCat = document.createElement('p');  
-      descriptionCat.textContent = `${imageData.breeds[0].description}`;
-      let temperamentCat = document.createElement('p');  
-      temperamentCat.textContent = `${imageData.breeds[0].temperament}`;
+        let nameCat = document.createElement('h2');
+        nameCat.textContent = `${breeds[0].name}`;
+        let descriptionCat = document.createElement('p');
+        descriptionCat.textContent = `${imageData.breeds[0].description}`;
+        let temperamentCat = document.createElement('p');
+        temperamentCat.textContent = `${imageData.breeds[0].temperament}`;
 
-    //   console.log(nameCat);
-    //   console.log(descriptionCat);
-    //    console.log(temperamentCat);
-    //   temperamentCat.classList.add("temp");
+        console.log(nameCat);
+        console.log(descriptionCat);
+        console.log(temperamentCat);
                   
-      catInfo.append(image, nameCat, descriptionCat, temperamentCat);
-       console.log(catInfo); 
+        catInfo.append(image, nameCat, descriptionCat, temperamentCat);
+        console.log(catInfo);
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
     });
-})
-.catch(function(error) {
-   console.log(error);
-});
+    // .finally(() => {
+    //   // if (fetchBreedsSelect.value) {
+
+    //   // }
+    //   catInfo.remove();
+    // } );
+    
+}
+// console.log(catInfo);
+// const url = `https://api.thecatapi.com/v1/images/search?breed_ids=aege`;
+// const url = `https://api.thecatapi.com/v1/images/search?breed_ids=${breed.id}`;
+// const api_key = "DEMO_API_KEY"
+
+//  fetch(url,{headers: {
+//       'x-api-key': api_key
+//     }})
+//  .then((response) => {
+//    return response.json();
+//  })
+// .then((data) => {
+//     let imagesData = data;
+//     console.log(imagesData);
+
+//     imagesData.map(function (imageData) {     
+//       const { url, breeds } = imageData;      
+      
+//      console.log(imageData);
+//     let image = document.createElement('img');
+//     //use the url from the image object
+//         image.src = `${url}`;      
+//         // image.width = 20px;
+//     console.log(image.src);
+            
+      
+//       let nameCat = document.createElement('h2');   
+//       nameCat.textContent = `${breeds[0].name}`;
+//       let descriptionCat = document.createElement('p');  
+//       descriptionCat.textContent = `${imageData.breeds[0].description}`;
+//       let temperamentCat = document.createElement('p');  
+//       temperamentCat.textContent = `${imageData.breeds[0].temperament}`;
+
+//       console.log(nameCat);
+//       console.log(descriptionCat);
+//        console.log(temperamentCat);
+//       temperamentCat.classList.add("temp");
+                  
+//       catInfo.append(image, nameCat, descriptionCat, temperamentCat);       
+//     });
+// })
+// .catch(function(error) {
+//    console.log(error);
+// });
 
 
-// function showBreedImage(index)
-// { 
-//   document.getElementById("breed_image").src= storedBreeds[index].image.url;
-  
-//   document.getElementById("breed_json").textContent= storedBreeds[index].temperament
-  
-  
-//   document.getElementById("wiki_link").href= storedBreeds[index].wikipedia_url
-//   document.getElementById("wiki_link").innerHTML= storedBreeds[index].wikipedia_url
-// }
+
 
 // const fetchBreedsSelect = document.querySelector(".breed-select");
 
