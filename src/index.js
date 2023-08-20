@@ -110,40 +110,39 @@ function fetchCatByBreed() {
     .then(response => {
       return response.json();
     })
-    .then(data => {
-      let imagesData = data;
-      // console.log(createMarkup(imagesData));
-      // createMarkup(imagesData);
-
-      catInfo.innerHTML = imagesData
-        .map(
-          ({ url, breeds }) => `<div class="cat-info">
-          <img src="${url}">
-          <h2>"${breeds[0].name}"</h2>
-          <p>"${breeds[0].description}"</p>
-          <p>"${breeds[0].temperament}"</p>
-        </div>`
-        )
-        .join(' ');
-    })
+    .then(data => createMarkup(data[0]))
     .catch(function (error) {
       console.log(error);
     });
+    // .then(data => {
+   
+    //   //  catInfo.innerHTML = imagesData
+    //   // console.log(markup);
+    //   markup = data
+    //     .map(({ url, breeds }) => `<div class="cat-info">
+    //       <img src="${url}">
+    //       <h2>"${breeds[0].name}"</h2>
+    //       <p>"${breeds[0].description}"</p>
+    //       <p>"${breeds[0].temperament}"</p>
+    //     </div>`
+    //     )
+    //     .join(' ');
+    //   console.log(markup);
+    //    catInfo.innerHTML = markup;
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
 
-  // function createMarkup(arr) {
-    
-  //   return arr
-  //       .map(
-  //         ({ url, breeds }) => `<div class="cat-info">
-  //           <img src="${url}">
-  //           <h2>"${breeds[0].name}"</h2>
-  //           <p>"${imagesData.breeds[0].description}"</p>
-  //           <p>"${imagesData.breeds[0].temperament}"</p>
-  //         </div>`
-  //       )
-  //       .join(' ')
-  //   );
-  // }
+  function createMarkup(arr) {
+    const markup = arr.map(item => `<div class="cat-info">
+            <img src="${url}">
+            <h2>"${breeds[0].name}"</h2>
+            <p>"${imagesData.breeds[0].description}"</p>
+            <p>"${imagesData.breeds[0].temperament}"</p>
+          </div>`).join(' ');
+    catInfo.innerHTML = markup;
+  }
 
   // .then((data) => {
   //   let imagesData = data;
