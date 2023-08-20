@@ -95,62 +95,117 @@ function fetchCatByBreed() {
   //   catInfo.remove();
   // }
 
-// const url = `https://api.thecatapi.com/v1/images/search?breed_ids=aege`;
+  // const url = `https://api.thecatapi.com/v1/images/search?breed_ids=aege`;
   // const url = `https://api.thecatapi.com/v1/images/search?breed_ids=${breed.id}`;
   const url = `https://api.thecatapi.com/v1/images/search?breed_ids=${fetchBreedsSelect.value}`;
 
-  console.log(url);
-// const api_key = "DEMO_API_KEY"
+  // console.log(url);
+  // const api_key = "DEMO_API_KEY"
 
   fetch(url, {
     headers: {
-      'x-api-key': api_key
-    }
+      'x-api-key': api_key,
+    },
   })
-    .then((response) => {
+    .then(response => {
       return response.json();
     })
-    .then((data) => {
+    .then(data => {
       let imagesData = data;
-      // console.log(imagesData);
+      // console.log(createMarkup(imagesData));
+      // createMarkup(imagesData);
 
-      imagesData.map(function (imageData) {
-        const { url, breeds } = imageData;
-      
-        // console.log(imageData);
-        let image = document.createElement('img');
-        //use the url from the image object
-        image.src = `${url}`;
-        // image.width = 20px;
-        console.log(image.src);
-            
-      
-        let nameCat = document.createElement('h2');
-        nameCat.textContent = `${breeds[0].name}`;
-        let descriptionCat = document.createElement('p');
-        descriptionCat.textContent = `${imageData.breeds[0].description}`;
-        let temperamentCat = document.createElement('p');
-        temperamentCat.textContent = `${imageData.breeds[0].temperament}`;
-
-        console.log(nameCat);
-        console.log(descriptionCat);
-        console.log(temperamentCat);
-                  
-        catInfo.append(image, nameCat, descriptionCat, temperamentCat);
-        console.log(catInfo);
-      });
+      catInfo.innerHTML = imagesData
+        .map(
+          ({ url, breeds }) => `<div class="cat-info">
+          <img src="${url}">
+          <h2>"${breeds[0].name}"</h2>
+          <p>"${breeds[0].description}"</p>
+          <p>"${breeds[0].temperament}"</p>
+        </div>`
+        )
+        .join(' ');
     })
     .catch(function (error) {
       console.log(error);
     });
-    // .finally(() => {
-    //   // if (fetchBreedsSelect.value) {
 
-    //   // }
-    //   catInfo.remove();
-    // } );
+  // function createMarkup(arr) {
     
+  //   return arr
+  //       .map(
+  //         ({ url, breeds }) => `<div class="cat-info">
+  //           <img src="${url}">
+  //           <h2>"${breeds[0].name}"</h2>
+  //           <p>"${imagesData.breeds[0].description}"</p>
+  //           <p>"${imagesData.breeds[0].temperament}"</p>
+  //         </div>`
+  //       )
+  //       .join(' ')
+  //   );
+  // }
+
+  // .then((data) => {
+  //   let imagesData = data;
+  //   // console.log(imagesData);
+
+  //   imagesData.map(function (imageData) {
+  //     const { url, breeds } = imageData;
+
+  //     // console.log(imageData);
+  //     let image = document.createElement('img');
+  //     //use the url from the image object
+  //     image.src = `${url}`;
+  //     // image.width = 20px;
+  //     console.log(image.src);
+
+  //     // `<div class="cat-info">
+  //     //   <img src="${url}">
+  //     //   <h2>"${breeds[0].name}"</h2>
+  //     //   <p>"${imageData.breeds[0].description}"</p>
+  //     //   <p>"${imageData.breeds[0].temperament}"</p>
+  //     // </div>`;
+  //     let nameCat = document.createElement('h2');
+  //     nameCat.textContent = `${breeds[0].name}`;
+  //     let descriptionCat = document.createElement('p');
+  //     descriptionCat.textContent = `${imageData.breeds[0].description}`;
+  //     let temperamentCat = document.createElement('p');
+  //     temperamentCat.textContent = `${imageData.breeds[0].temperament}`;
+  //     // console.log(nameCat);
+  //     // console.log(descriptionCat);
+  //     // console.log(temperamentCat);
+  //     catInfo.append(image, nameCat, descriptionCat, temperamentCat);
+  //     console.log(catInfo);
+  //   });
+  // })
+  // .catch(function (error) {
+  //   console.log(error);
+  // });
+  // .finally(() => {
+  //   // if (fetchBreedsSelect.value) {
+
+  //   // }
+  //   catInfo.remove();
+  // } );
 }
+
+// function createMarkup(arr) {
+//   console.log(arr);
+
+//   return console.log(
+//     arr
+//       .map(
+//         ({ url, breeds }) => `<div class="cat-info">
+//           <img src="${url}">
+//           <h2>"${breeds[0].name}"</h2>
+//           <p>"${imagesData.breeds[0].description}"</p>
+//           <p>"${imagesData.breeds[0].temperament}"</p>
+//         </div>`
+//       )
+//       .join(' ')
+//   );
+// }
+
 // console.log(catInfo);
 // const url = `https://api.thecatapi.com/v1/images/search?breed_ids=aege`;
 // const url = `https://api.thecatapi.com/v1/images/search?breed_ids=${breed.id}`;
