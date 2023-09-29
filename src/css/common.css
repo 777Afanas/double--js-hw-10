@@ -16,3 +16,16 @@ img {
     display: block;
     max-width: 30%;
 }
+
+
+.breed-select.is-hidden {
+    display: none;
+}
+
+.loader.is-hidden {
+    display: none;
+}
+
+.error.is-hidden {
+    display: none;
+}
