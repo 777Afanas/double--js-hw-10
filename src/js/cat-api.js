@@ -1,9 +1,12 @@
+import axios  from "axios"; 
 import getRefs from "./get-refs";
 
 
+axios.defaults.headers.common["x-api-key"] = `live_JJWPSVYeymspnNURrwJNrEoFQ9xEFTfnXeyuAKVCVICBuPkGG95Ew7XOSCY83E6e`;
+
 const refs = getRefs(); 
-const api_key =
-  'live_JJWPSVYeymspnNURrwJNrEoFQ9xEFTfnXeyuAKVCVICBuPkGG95Ew7XOSCY83E6e';
+// const api_key =
+//   'live_JJWPSVYeymspnNURrwJNrEoFQ9xEFTfnXeyuAKVCVICBuPkGG95Ew7XOSCY83E6e';
 
 
   // Коллекция пород
@@ -15,21 +18,32 @@ const api_key =
 // Напиши функцию fetchBreeds() которая делает HTTP-запрос и возвращает промис с массивом 
 // пород - результатом запроса. Вынеси её в файл cat - api.js и сделай именованный экспорт. 
 
-export function fetchBreeds() {
-  
-  const url = `https://api.thecatapi.com/v1/breeds`;
-  let storedBreeds = [];
+export function fetchBreeds() {   
+  // const url = `https://api.thecatapi.com/v1/breeds`;
+  // let storedBreeds = [];
 
-  return fetch(url, {
-    headers: {
-      'x-api-key': api_key,
-    },
-  })
-    .then(response => {
-      return response.json();       
-    });       
-  
+  return axios({
+    url: `https://api.thecatapi.com/v1/breeds`,
+    // headers: {
+    //   'x-api-key': `live_JJWPSVYeymspnNURrwJNrEoFQ9xEFTfnXeyuAKVCVICBuPkGG95Ew7XOSCY83E6e`,
+    // },
+  });   
 }
+
+
+// export function fetchBreeds() {   
+//   const url = `https://api.thecatapi.com/v1/breeds`;
+//   let storedBreeds = [];
+
+//   return fetch(url, {
+//     headers: {
+//       'x-api-key': api_key,
+//     },
+//   })
+//     .then(response => {
+//       return response.json();       
+//     });         
+// }
 
 // Информация о коте
 // Когда пользователь выбирает опцию в селекте, необходимо выполнять запрос за полной информацией
@@ -44,12 +58,20 @@ export function fetchBreeds() {
 export function fetchCatByBreed() {   
   const url = `https://api.thecatapi.com/v1/images/search?breed_ids=${refs.breedsSelect.value}`;
 
-  return fetch(url, {
-    headers: {
-      'x-api-key': api_key,
-    },
-  })
-    .then(response => {
-      return response.json();
-    });       
+  return axios(url);
+       
 }
+
+
+// export function fetchCatByBreed() {   
+//   const url = `https://api.thecatapi.com/v1/images/search?breed_ids=${refs.breedsSelect.value}`;
+
+//   return fetch(url, {
+//     headers: {
+//       'x-api-key': api_key,
+//     },
+//   })
+//     .then(response => {
+//       return response.json();
+//     });       
+// }

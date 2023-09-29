@@ -16,8 +16,9 @@ function onfetchBreeds() {
 
   fetchBreeds()
     .then(data => {
+      console.log(data.data);
       //filter to only include those with an `image` object
-      storedBreeds = data.filter(img => img.image?.url != null);
+      storedBreeds = data.data.filter(img => img.image?.url != null);
       // storedBreeds = data;
 
       for (let i = 0; i < storedBreeds.length; i++) {
@@ -51,13 +52,14 @@ function onfetchCatByBreed() {
 
   fetchCatByBreed()
     .then(data => {
-      rendersBreeds(data);
+      rendersBreeds(data.data);
     })
     .catch(function (error) {
       console.log(error);
     });
-   
+     
 }  
+
 
 
 
