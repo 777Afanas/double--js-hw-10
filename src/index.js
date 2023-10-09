@@ -61,8 +61,6 @@ function onfetchCatByBreed() {
 }  
 
 
-
-
 // const fetchBreedsSelect = document.querySelector('.breed-select');
 // catInfo = document.querySelector('.cat-info');
 
@@ -219,6 +217,14 @@ function onfetchCatByBreed() {
 //       console.log(descriptionCat);
 //        console.log(temperamentCat);
 //       temperamentCat.classList.add("temp");
+
+//       catInfo.append(image, nameCat, descriptionCat, temperamentCat);
+//     });
+// })
+// .catch(function(error) {
+//    console.log(error);
+// });
+
 
 //       catInfo.append(image, nameCat, descriptionCat, temperamentCat);
 //     });
