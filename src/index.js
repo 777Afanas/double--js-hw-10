@@ -2,6 +2,7 @@ import { fetchBreeds } from './js/cat-api';
 import { fetchCatByBreed } from './js/cat-api';
 import getRefs from './js/get-refs';
 import { rendersBreeds } from './js/renderMarkup';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 let storedBreeds = [];
 const refs = getRefs();
@@ -12,7 +13,9 @@ window.addEventListener('load', onfetchBreeds);
 refs.breedsSelect.addEventListener('change', onfetchCatByBreed);
 
 function onfetchBreeds() {
-  refs.loaderInfo.classList.remove('is-hidden');
+  refs.loaderInfo.classList.remove('is-hidden'); 
+  // refs.loaderInfo.classList.add('loader'); 
+  // refs.loaderInfo; 
   refs.breedsSelect.classList.add('is-hidden');
 
   fetchBreeds()
@@ -38,7 +41,16 @@ function onfetchBreeds() {
       }
     })
     .catch(function (error) {
+      refs.breedsSelect.classList.add('is-hidden');
+      // refs.errorData.classList.remove('is-hidden');
       console.log(error);
+      Notify.warning(`Oops! Something went wrong! Try reloading the page!`,
+        {
+          timeout: 6000,
+          // position: center-top,
+          // position:left-bottom,
+      });
+      // return;
     });
   
   refs.loaderInfo.classList.add('is-hidden');
@@ -47,7 +59,10 @@ function onfetchBreeds() {
 
 
 function onfetchCatByBreed() {
-  refs.loaderInfo.classList.remove('is-hidden');
+  // refs.loaderInfo.classList.remove('is-hidden');
+  // refs.loaderInfo.classList.add('loader');
+  refs.loaderInfo.classList.remove('is-hidden'); 
+  // refs.loaderInfo;
   refs.catInfo.classList.add('is-hidden');
   refs.catInfo.innerHTML = ' ';
 
@@ -55,8 +70,18 @@ function onfetchCatByBreed() {
     .then(data => {
       rendersBreeds(data.data);
     })
-    .catch(function (error) {
+    .catch(function (error) {        
+      // refs.errorData.classList.remove('is-hidden'); 
+      refs.breedsSelect.classList.add('is-hidden'); 
+      // refs.loaderInfo.classList.add('is-hidden');
       console.log(error);
+      Notify.warning(`Oops! Something went wrong! Try reloading the page!`,
+        {
+          timeout: 6000,
+          // position: center-top,
+          // position:left-bottom,
+        });
+      //  return;
     });
      
 }  

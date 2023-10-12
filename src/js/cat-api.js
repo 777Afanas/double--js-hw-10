@@ -57,6 +57,7 @@ export function fetchBreeds() {
 
 export function fetchCatByBreed() {   
   const url = `https://api.thecatapi.com/v1/images/search?breed_ids=${refs.breedsSelect.value}`;
+  //  const url = `https://api.thecatapi.com/v1/images/sear`;
 
   return axios(url);
        

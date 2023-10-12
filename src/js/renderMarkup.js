@@ -7,9 +7,11 @@ export function rendersBreeds(arr) {
       .map(({ url, breeds }) => {
         return `<div class="cat-info">
             <img src="${url}">
-            <h2>"${breeds[0].name}"</h2>
-            <p>"${breeds[0].description}"</p>
-            <p>"${breeds[0].temperament}"</p>
+            <div class="content">
+            <h2>${breeds[0].name}</h2>
+            <p>${breeds[0].description}</p>
+            <p><b>Temperament:</b> ${breeds[0].temperament}</p>
+            </div>
           </div>`;
       })
       .join(' '); 
