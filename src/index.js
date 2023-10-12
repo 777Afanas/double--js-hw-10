@@ -3,6 +3,7 @@ import { fetchCatByBreed } from './js/cat-api';
 import getRefs from './js/get-refs';
 import { rendersBreeds } from './js/renderMarkup';
 
+let storedBreeds = [];
 const refs = getRefs();
 refs.errorData.classList.add('is-hidden'); 
 refs.loaderInfo.classList.add('is-hidden');
